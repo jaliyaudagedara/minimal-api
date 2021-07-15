@@ -1,10 +1,24 @@
+using Microsoft.OpenApi.Models;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // ConfigureServices
 builder.Services.AddDbContext<EmployeeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal API", Description = "OpenAPI specification for Minimal API", Version = "v1" });
+});
+
 await using WebApplication app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minimal API V1");
+});
 
 // Configure
 if (app.Environment.IsDevelopment())
