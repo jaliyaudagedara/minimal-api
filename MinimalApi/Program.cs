@@ -26,12 +26,12 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.MapGet("/employees", async ([FromServices] EmployeeContext dbContext) =>
+app.MapGet("/employees", async (EmployeeContext dbContext) =>
 {
     return await dbContext.Employees.ToListAsync();
 });
 
-app.MapGet("/employees/{id}", async ([FromServices] EmployeeContext dbContext, int id) =>
+app.MapGet("/employees/{id}", async (EmployeeContext dbContext, int id) =>
 {
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
@@ -42,7 +42,7 @@ app.MapGet("/employees/{id}", async ([FromServices] EmployeeContext dbContext, i
     return Ok(employee);
 });
 
-app.MapPost("/employees", async ([FromServices] EmployeeContext dbContext, Employee employee) =>
+app.MapPost("/employees", async (EmployeeContext dbContext, Employee employee) =>
 {
     await dbContext.Employees.AddAsync(employee);
     await dbContext.SaveChangesAsync();
@@ -50,7 +50,7 @@ app.MapPost("/employees", async ([FromServices] EmployeeContext dbContext, Emplo
     return Ok(employee);
 });
 
-app.MapPut("/employees/{id}", async ([FromServices] EmployeeContext dbContext, int id, Employee employee) =>
+app.MapPut("/employees/{id}", async (EmployeeContext dbContext, int id, Employee employee) =>
 {
     if (id != employee.Id)
     {
@@ -68,7 +68,7 @@ app.MapPut("/employees/{id}", async ([FromServices] EmployeeContext dbContext, i
     return NoContent();
 });
 
-app.MapDelete("/employees/{id}", async ([FromServices] EmployeeContext dbContext, int id) =>
+app.MapDelete("/employees/{id}", async (EmployeeContext dbContext, int id) =>
 {
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
