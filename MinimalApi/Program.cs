@@ -36,10 +36,10 @@ app.MapGet("/employees/{id}", async (EmployeeContext dbContext, int id) =>
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
     {
-        return NotFound();
+        return Results.NotFound();
     }
 
-    return Ok(employee);
+    return Results.Ok(employee);
 });
 
 app.MapPost("/employees", async (EmployeeContext dbContext, Employee employee) =>
@@ -47,25 +47,25 @@ app.MapPost("/employees", async (EmployeeContext dbContext, Employee employee) =
     await dbContext.Employees.AddAsync(employee);
     await dbContext.SaveChangesAsync();
 
-    return Ok(employee);
+    return Results.Ok(employee);
 });
 
 app.MapPut("/employees/{id}", async (EmployeeContext dbContext, int id, Employee employee) =>
 {
     if (id != employee.Id)
     {
-        return BadRequest();
+        return Results.BadRequest();
     }
 
     if (!await dbContext.Employees.AnyAsync(x => x.Id == id))
     {
-        return NotFound();
+        return Results.NotFound();
     }
 
     dbContext.Entry(employee).State = EntityState.Modified;
     await dbContext.SaveChangesAsync();
 
-    return NoContent();
+    return Results.NoContent();
 });
 
 app.MapDelete("/employees/{id}", async (EmployeeContext dbContext, int id) =>
@@ -73,13 +73,13 @@ app.MapDelete("/employees/{id}", async (EmployeeContext dbContext, int id) =>
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
     {
-        return NotFound();
+        return Results.NotFound();
     }
 
     dbContext.Employees.Remove(employee);
     await dbContext.SaveChangesAsync();
 
-    return NoContent();
+    return Results.NoContent();
 });
 
 await app.RunAsync();
