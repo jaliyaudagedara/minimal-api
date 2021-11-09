@@ -1,9 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31320.298
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi\MinimalApi", "MinimalApi\MinimalApi.csproj", "{EA3ECD2C-8F64-48B8-A7AE-7D8C6119A601}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimalApi", "MinimalApi\MinimalApi.csproj", "{EA3ECD2C-8F64-48B8-A7AE-7D8C6119A601}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{397318D3-E7CB-4311-B3A6-D5A304EB548B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F5FE2660-6C7E-4B49-891B-69ECBC053846}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\app-minimal-api.yml = .github\workflows\app-minimal-api.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5FE2660-6C7E-4B49-891B-69ECBC053846} = {397318D3-E7CB-4311-B3A6-D5A304EB548B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8364CBCF-F1F7-4EF4-BB93-BC8F2B754FCD}
