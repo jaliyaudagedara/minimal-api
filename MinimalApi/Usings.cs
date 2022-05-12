@@ -4,4 +4,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
+global using Microsoft.AspNetCore.Http.HttpResults;
+global using Microsoft.OpenApi.Models;
 global using MinimalApi;
+global using MinimalApi.Models;

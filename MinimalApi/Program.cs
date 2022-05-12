@@ -1,5 +1,3 @@
-using Microsoft.OpenApi.Models;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // ConfigureServices
@@ -28,58 +26,58 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/employees", async (EmployeeContext dbContext) =>
 {
-    return await dbContext.Employees.ToListAsync();
+    return TypedResults.Ok(await dbContext.Employees.ToListAsync());
 });
 
-app.MapGet("/employees/{id}", async (EmployeeContext dbContext, int id) =>
+app.MapGet("/employees/{id}", async Task<Results<Ok<Employee>, NotFound>> (int id, EmployeeContext dbContext) =>
 {
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
     {
-        return Results.NotFound();
+        return TypedResults.NotFound();
     }
 
-    return Results.Ok(employee);
+    return TypedResults.Ok(employee);
 });
 
-app.MapPost("/employees", async (EmployeeContext dbContext, Employee employee) =>
+app.MapPost("/employees", async (Employee employee, EmployeeContext dbContext) =>
 {
     await dbContext.Employees.AddAsync(employee);
     await dbContext.SaveChangesAsync();
 
-    return Results.Ok(employee);
+    return TypedResults.Created($"/employees/{employee.Id}", employee);
 });
 
-app.MapPut("/employees/{id}", async (EmployeeContext dbContext, int id, Employee employee) =>
+app.MapPut("/employees/{id}", async Task<Results<NoContent, BadRequest, NotFound>> (int id, Employee employee, EmployeeContext dbContext) =>
 {
     if (id != employee.Id)
     {
-        return Results.BadRequest();
+        return TypedResults.BadRequest();
     }
 
     if (!await dbContext.Employees.AnyAsync(x => x.Id == id))
     {
-        return Results.NotFound();
+        return TypedResults.NotFound();
     }
 
     dbContext.Entry(employee).State = EntityState.Modified;
     await dbContext.SaveChangesAsync();
 
-    return Results.NoContent();
+    return TypedResults.NoContent();
 });
 
-app.MapDelete("/employees/{id}", async (EmployeeContext dbContext, int id) =>
+app.MapDelete("/employees/{id}", async Task<Results<NoContent, NotFound>> (int id, EmployeeContext dbContext) =>
 {
     Employee employee = await dbContext.Employees.FindAsync(id);
     if (employee is null)
     {
-        return Results.NotFound();
+        return TypedResults.NotFound();
     }
 
     dbContext.Employees.Remove(employee);
     await dbContext.SaveChangesAsync();
 
-    return Results.NoContent();
+    return TypedResults.NoContent();
 });
 
 await app.RunAsync();
