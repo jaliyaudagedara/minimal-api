@@ -1,4 +1,6 @@
-﻿namespace MinimalApi;
+﻿using MinimalApi.Models;
+
+namespace MinimalApi;
 
 public class EmployeeContext : DbContext
 {
@@ -7,11 +9,4 @@ public class EmployeeContext : DbContext
     }
 
     public DbSet<Employee> Employees { get; set; }
-}
-
-public class Employee
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; }
 }
