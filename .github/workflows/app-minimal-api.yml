@@ -2,7 +2,7 @@ name: Build and deploy .NET Core app to Linux WebApp app-minimal-api
 on:
   push:
     branches:
-    - master
+    - main
 env:
   AZURE_WEBAPP_NAME: app-minimal-api
   AZURE_WEBAPP_PACKAGE_PATH: MinimalApi/publish
