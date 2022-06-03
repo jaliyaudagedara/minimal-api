@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{F5FE2660-6C7E-4B49-891B-69ECBC053846}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\app-minimal-api.yml = .github\workflows\app-minimal-api.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 	EndProjectSection
 EndProject
 Global

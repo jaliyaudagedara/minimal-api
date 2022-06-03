@@ -19,7 +19,11 @@ on:
     branches: [ main ]
   schedule:
     - cron: '43 22 * * 2'
-
+    
+env:
+  DOTNET_CORE_VERSION: 7.0.100-preview.4.22252.9
+  WORKING_DIRECTORY: MinimalApi
+    
 jobs:
   analyze:
     name: Analyze
@@ -40,6 +44,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -55,8 +64,14 @@ jobs:
         
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v2
+        
+    - name: Restore
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
+      
+    - name: Build
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}"
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
