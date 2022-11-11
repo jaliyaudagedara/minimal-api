@@ -8,7 +8,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: MinimalApi/publish
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.app_minimal_api_39a4 }}
   CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 7.0.100-preview.4.22252.9
+  DOTNET_CORE_VERSION: 7.0.*
   WORKING_DIRECTORY: MinimalApi
 jobs:
   build-and-deploy:
