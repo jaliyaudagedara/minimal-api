@@ -1,6 +1,4 @@
-﻿using MinimalApi.Models;
-
-namespace MinimalApi;
+﻿namespace MinimalApi;
 
 public class EmployeeContext : DbContext
 {

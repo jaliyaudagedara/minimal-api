@@ -3,22 +3,25 @@ on:
   push:
     branches:
     - main
+    - feature/*
+    
 env:
   AZURE_WEBAPP_NAME: app-minimal-api
   AZURE_WEBAPP_PACKAGE_PATH: MinimalApi/publish
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.app_minimal_api_39a4 }}
   CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 7.0.*
+  DOTNET_CORE_VERSION: 8.0.*
   WORKING_DIRECTORY: MinimalApi
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+        dotnet-quality: 'preview'
     - name: Restore
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
